@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine, MetaData
-from databases import Database
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import declarative_base
 
-DATABASE_URL = "sqlite+aiosqlite:///../storage/db.db"
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+DATABASE_URL = "sqlite:///../storage/db.db"
+engine = create_engine(DATABASE_URL, echo=True)
+
 metadata = MetaData()
-database = Database(DATABASE_URL)
-Base = declarative_base()
+
+Base = declarative_base(metadata=metadata)
