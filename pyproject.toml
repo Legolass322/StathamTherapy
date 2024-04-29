@@ -14,6 +14,9 @@ databases = {extras = ["sqlite"], version = "^0.9.0"}
 flake8 = "^7.0.0"
 pytest = "^8.1.1"
 bcrypt = "^4.1.2"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+python-multipart = "^0.0.9"
+httpx = "^0.27.0"
 
 [tool.poetry.scripts]
 dev = "src.scripts.dev:main"

@@ -10,7 +10,8 @@ from database.models._all_models import *
 
 
 def main():
-    database.init_db(config["database"]["host"])
+    database.db.init(config["database"]["host"])
+    database.db.create_tables()
     pytest.main()
 
 

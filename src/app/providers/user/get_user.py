@@ -1,11 +1,12 @@
-from sqlalchemy.orm import Session
-
 from database.models.user import User
 from database import database
 
-def create_user(login: str, password: str):
-    with Session(database.engine) as session:
-        new_user = User(login=login, passhash=password, salt="some salt todo")
-        session.add(new_user)
-        session.commit()
-        return {"id": new_user.id, "login": new_user.login}
+
+def get_user_by_id(id: str):
+    with database.db.session() as session:
+        return session.query(User).filter(User.id == id).first()
+
+
+def get_user_by_login(login: str):
+    with database.db.session() as session:
+        return session.query(User).filter(User.login == login).first()

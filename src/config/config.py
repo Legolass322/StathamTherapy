@@ -4,14 +4,18 @@ from .meta import Meta
 
 ENV = os.environ.get("ENV")
 HOST = os.environ.get("HOST")
-AUTH_SECRET = os.environ.get("AUTH_SECRET")
+AUTH_JWT_SECRET = os.environ.get("AUTH_JWT_SECRET")
+AUTH_RT_SECRET = os.environ.get("AUTH_RT_SECRET")
 
 production_config = {
     "host": HOST,
     "auth": {
-        "secret": AUTH_SECRET,
+        "jwt_secret": AUTH_JWT_SECRET,
+        "rt_secret": AUTH_RT_SECRET,
+        "algorithm": "HS256",
         # time in minutes
         "jwt_expiration": 15,
+        "rt_expiration": 60 * 24 * 7,
     },
     "database": {"host": "sqlite:///./storage/db.db"},
 }
