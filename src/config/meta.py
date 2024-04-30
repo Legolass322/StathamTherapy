@@ -32,6 +32,8 @@ class Meta:
 
     def get_config(self, env: str) -> dict:
         assert_env(env)
-        assert env in self.configs and self.configs[env] is not None, f"Config for {env} is not defined"
+        assert (
+            env in self.configs and self.configs[env] is not None
+        ), f"Config for {env} is not defined"
 
         return self.configs[env]

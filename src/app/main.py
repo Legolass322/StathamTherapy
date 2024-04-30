@@ -22,8 +22,11 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+
 @app.middleware("http")
-async def request_info(request: Request, call_next: Callable[[Request], Awaitable[Response]]):
+async def request_info(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+):
     logger.info(f"Request started: {request.method} {request.url}")
     start_time = time.time()
     response = await call_next(request)
@@ -31,5 +34,6 @@ async def request_info(request: Request, call_next: Callable[[Request], Awaitabl
     response.headers["X-Process-Time"] = str(process_time)
     logger.info(f"Request finished: {request.method} {request.url} in {process_time}s")
     return response
+
 
 app.include_router(api_router.router)

@@ -22,7 +22,8 @@ async def signup(body: SignBody):
         tokens = login_user(user)
     except IntegrityError:
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT, detail="Login has been already taken"
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Login has been already taken",
         )
 
     return JSONResponse(tokens)
