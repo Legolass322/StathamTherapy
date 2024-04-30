@@ -2,4 +2,5 @@
 
 import subprocess
 
+subprocess.run(["poetry", "run", "black", "src"])
 subprocess.run(["poetry", "run", "flake8"])

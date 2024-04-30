@@ -11,7 +11,9 @@ from pydantic import ValidationError
 
 from database.models.user import User
 
-reuseable_oauth = OAuth2PasswordBearer(tokenUrl="/api/auth/login_form", scheme_name="JWT")
+reuseable_oauth = OAuth2PasswordBearer(
+    tokenUrl="/api/auth/login_form", scheme_name="JWT"
+)
 
 
 async def get_current_user(token: str = Depends(reuseable_oauth)):

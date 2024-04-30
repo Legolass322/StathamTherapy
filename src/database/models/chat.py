@@ -15,4 +15,7 @@ class Chat(Base):
     messages = relationship("Message", back_populates="chat")
 
     def __repr__(self) -> str:
-        return f"Chat(id={self.id!r}, created_at={self.created_at!r}, updated_at={self.updated_at!r})"
+        id = self.id
+        created_at = self.created_at
+        updated_at = self.updated_at
+        return f"Chat(id={id!r}, created_at={created_at!r}, updated_at={updated_at!r})"

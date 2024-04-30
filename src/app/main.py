@@ -10,20 +10,26 @@ from logger.logger import logger
 
 from config.config import config
 
+from statham.user import statham_user
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     logger.info("Lifespan start")
     database.db.init(config["database"]["host"])
     database.db.create_tables()
+    statham_user.init()
     yield
     logger.info("Lifespan end")
 
 
 app = FastAPI(lifespan=lifespan)
 
+
 @app.middleware("http")
-async def request_info(request: Request, call_next: Callable[[Request], Awaitable[Response]]):
+async def request_info(
+    request: Request, call_next: Callable[[Request], Awaitable[Response]]
+):
     logger.info(f"Request started: {request.method} {request.url}")
     start_time = time.time()
     response = await call_next(request)
@@ -31,5 +37,6 @@ async def request_info(request: Request, call_next: Callable[[Request], Awaitabl
     response.headers["X-Process-Time"] = str(process_time)
     logger.info(f"Request finished: {request.method} {request.url} in {process_time}s")
     return response
+
 
 app.include_router(api_router.router)

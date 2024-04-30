@@ -1,5 +1,4 @@
 from database.models.subscription_user_chat import SubscriptionUserChat
-from database.models.chat import Chat
 from database import database
 
 

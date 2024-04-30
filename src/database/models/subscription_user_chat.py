@@ -16,4 +16,12 @@ class SubscriptionUserChat(Base):
     chat = relationship("Chat", back_populates="chat_subscriptions")
 
     def __repr__(self) -> str:
-        return f"SubscriptionUserChat(id={self.id!r}, user_id={self.user_id!r}, chat_id={self.chat_id!r}, created_at={self.created_at!r})"
+        fields = {
+            "id": self.id,
+            "user_id": self.user_id,
+            "chat_id": self.chat_id,
+            "created_at": self.created_at,
+        }
+        formatted = [f"{k}: {v}" for k, v in fields]
+        string = ", ".join(formatted)
+        return f"SubscriptionUserChat({string})"

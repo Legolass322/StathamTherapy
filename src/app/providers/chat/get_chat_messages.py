@@ -1,5 +1,4 @@
 from database.models.message import Message
-from database.models.chat import Chat
 from database import database
 
 
