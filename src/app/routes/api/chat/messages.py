@@ -3,7 +3,6 @@ from typing import Annotated, List
 from fastapi import Depends, Query, status
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-
 from app.providers.chat.check_user_has_chat import check_user_has_chat
 from app.providers.chat.get_chat_messages import get_chat_messages
 from app.schemas.common import Message as HTTPMessage
@@ -17,8 +16,6 @@ class MessageModel(BaseModel):
     sender_id: int
     chat_id: int
     text: str
-    created_at: str
-    updated_at: str
 
 
 @router.get(
@@ -37,6 +34,11 @@ async def get_messages(
     if not check_user_has_chat(user.id, chat_id):
         raise HTTPException(status.HTTP_403_FORBIDDEN, detail="No such chat")
 
+    msgs = get_chat_messages(chat_id, page_size, page_number)
+
     return JSONResponse(
-        [MessageModel(m) for m in get_chat_messages(chat_id, page_size, page_number)]
+        [
+            {"id": m.id, "sender_id": m.sender_id, "chat_id": m.chat_id, "text": m.text}
+            for m in msgs
+        ]
     )

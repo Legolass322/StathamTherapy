@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  sonarqube:
+    image: sonarqube:latest
+    environment:
+      - SONARQUBE_DB_USERNAME=sonar
+      - SONARQUBE_DB_PASSWORD=sonar
+    ports:
+      - "9000:9000"
+    networks:
+      - sonar
+
+  sonar-scanner:
+    image: sonarsource/sonar-scanner-cli:latest
+    depends_on:
+      - sonarqube
+    volumes:
+      - ../../src:/src
+    command: ["-Dsonar.host.url=http://sonarqube:9000", "-Dsonar.projectKey=statham", "-Dsonar.token=sqp_eb477b8892737f3db4f0252d243f66ac7ed90ea2", "-Dsonar.cobertura.skip=true", "-Dsonar.projectBaseDir=/src", "-Dsonar.python.version=3.11.9", "-Dsonar.python.cobertura.skip=true", "-X"]
+    networks:
+      - sonar
+
+networks:
+  sonar:

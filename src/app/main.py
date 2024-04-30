@@ -10,12 +10,15 @@ from logger.logger import logger
 
 from config.config import config
 
+from statham.user import statham_user
+
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     logger.info("Lifespan start")
     database.db.init(config["database"]["host"])
     database.db.create_tables()
+    statham_user.init()
     yield
     logger.info("Lifespan end")
 
