@@ -17,7 +17,15 @@ services:
       - sonarqube
     volumes:
       - ../../src:/src
-    command: ["-Dsonar.host.url=http://sonarqube:9000", "-Dsonar.projectKey=statham", "-Dsonar.token=sqp_eb477b8892737f3db4f0252d243f66ac7ed90ea2", "-Dsonar.cobertura.skip=true", "-Dsonar.projectBaseDir=/src", "-Dsonar.python.version=3.11.9", "-Dsonar.python.cobertura.skip=true", "-X"]
+    command: [
+      "-Dsonar.host.url=http://sonarqube:9000", 
+      "-Dsonar.projectKey=statham", 
+      "-Dsonar.cobertura.skip=true", 
+      "-Dsonar.projectBaseDir=/src", 
+      "-Dsonar.python.version=3.11.9", 
+      "-Dsonar.python.cobertura.skip=true", 
+      "-X"
+    ]
     networks:
       - sonar
 

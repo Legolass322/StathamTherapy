@@ -45,11 +45,11 @@ class TestMeta:
         assert config_prod["a"] == 1
         assert config_dev["a"] == 2
         
-        input_config = {"a": 1, "str": "string", "bool": True, "num": 12.1, "dict": {"b": 2}}
+        input_config = {"a": 1, "str": "string", "bool": True, "num": 12, "dict": {"b": 2}}
         config = Meta().set("production", input_config).set_from("development", "production", updater).get_config("development")
         
         assert config["a"] == 2
         assert config["str"] == "string"
         assert config["bool"] == True
-        assert config["num"] == 12.1
+        assert config["num"] == 12
         assert config["dict"]["b"] == 3

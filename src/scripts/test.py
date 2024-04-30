@@ -12,7 +12,7 @@ from database.models._all_models import *
 def main():
     database.db.init(config["database"]["host"])
     database.db.create_tables()
-    pytest.main(["--cov=src"])
+    pytest.main(["--cov=src", "--cov-branch"])
 
 
 if __name__ == "__main__":
